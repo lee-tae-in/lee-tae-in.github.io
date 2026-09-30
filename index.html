@@ -1,12 +1,1163 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<!--
+  ============================================================
+  [이름] 포트폴리오 — index.html
+  - 이 파일 하나에 HTML(구조) + CSS(디자인)가 모두 들어 있어요.
+  - [대괄호]로 된 부분을 본인 내용으로 바꾸면 돼요.
+  - GitHub Pages 등에 이 파일 하나만 올려도 바로 동작해요.
+  ============================================================
+-->
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="utf-8">
+<!-- 모바일에서 화면 크기에 맞게 보이도록 해주는 설정 (지우지 마세요) -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 브라우저 탭에 보이는 제목 -->
+<title>[이태인] 포트폴리오</title>
+<!-- 구글 폰트 불러오기: Jua(제목용, 둥글고 귀여운 느낌) + Gowun Dodum(본문용) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap">
+<style>
+/* ---------- 색상 & 기본값 (여기만 바꿔도 전체 색이 바뀌어요) ---------- */
+:root {
+  /* 글자색 */
+  --ink: #26244a;
+  --ink-soft: #5a5878;
+  /* 배경색 & 격자 선 색 */
+  --paper: #fdfcff;
+  --line: #e7e4f3;
+  /* 포인트 컬러: 에메랄드(메인) / 핑크 / 파랑 / 보라
+     진한색은 글자·버튼용, 연한색은 배경용 */
+  --emerald: #0f9e7b;
+  --emerald-deep: #0b7a60;
+  --mint: #d3f4e8;
+  --pink: #ffd6e4;
+  --pink-deep: #e2578a;
+  --blue: #4c78e8;
+  --sky: #dbe6ff;
+  --purple: #8a6be0;
+  --lavender: #e9e1ff;
+  /* 모서리 둥글기 (큰 박스 / 중간 박스) */
+  --r-lg: 28px;
+  --r-md: 18px;
+}
+
+/* ---------- 전체 공통 설정 ---------- */
+/* 박스 크기 계산을 쉽게 (padding이 너비에 포함되도록) */
+* {
+  box-sizing: border-box;
+}
+
+/* 메뉴 클릭 시 부드럽게 스크롤 */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family:
+    "Gowun Dodum",
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  /* 모눈 노트 느낌의 격자 배경: 가로선 + 세로선을 28px 간격으로 반복 */
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size: 28px 28px;
+}
+
+h1, h2, h3 {
+  font-family: "Jua","Gowun Dodum",sans-serif;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* 키보드(Tab)로 이동할 때 현재 위치를 파란 테두리로 표시 (접근성) */
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* 내용이 너무 넓게 퍼지지 않도록 가운데 1160px 폭으로 묶어주는 틀 */
+.wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* 상단 메뉴바: sticky로 스크롤해도 위에 붙어 있음, 반투명 배경 + 블러 */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(253,252,255,.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px dashed var(--line);
+}
+
+.nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  font-family: "Jua",sans-serif;
+  font-size: 24px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 로고 앞의 점 3개:
+   점 하나 + box-shadow 두 개로 에메랄드·핑크·보라 점을 만듦 */
+.logo-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 10px 0 0 var(--pink-deep),20px 0 0 var(--purple);
+  margin-right: 22px;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a.link {
+  display: block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* 메뉴에 마우스 올리면 연보라 배경 */
+.nav a.link:hover {
+  background: var(--lavender);
+}
+
+/* ---------- 첫 화면(히어로) ---------- */
+.hero {
+  padding: 72px 0 96px;
+}
+
+/* 왼쪽(인사말) : 오른쪽(학생증) = 1.25 : 1 비율의 2단 배치 */
+.hero .wrap {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+/* "안녕하세요" 말풍선 배지 */
+.hello {
+  display: inline-block;
+  background: var(--mint);
+  color: var(--emerald-deep);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* clamp(최소, 화면비례, 최대): 화면 크기에 따라 글자 크기가 자동 조절 */
+.hero h1 {
+  font-size: clamp(42px,6vw,76px);
+  letter-spacing: -.01em;
+}
+
+.hero h1 .name {
+  position: relative;
+  white-space: nowrap;
+}
+
+/* 이름 아래 형광펜 효과: 핑크 막대를 글자 뒤(z-index:-1)에 깔아줌 */
+.hero h1 .name::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: 6px;
+  height: 18px;
+  background: var(--pink);
+  z-index: -1;
+  border-radius: 6px;
+}
+
+.hero p {
+  font-size: 19px;
+  color: var(--ink-soft);
+  max-width: 520px;
+  margin: 24px 0 32px;
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 버튼 공통 모양 (알약 모양 + 마우스 올리면 살짝 위로) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 50px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-size: 17px;
+  text-decoration: none;
+  border: 2px solid var(--ink);
+  transition: transform .15s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* 메인 버튼(에메랄드) / 보조 버튼(흰색) — 아래 box-shadow로 입체감 */
+.btn.primary {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--emerald-deep);
+}
+
+.btn.ghost {
+  background: #fff;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+/* ---------- 학생증 카드 ---------- */
+.idcard-zone {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+/* 학생증 목걸이 줄: 보라 사선 줄무늬 */
+.lanyard {
+  position: absolute;
+  top: -20px;
+  width: 26px;
+  height: 78px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--purple) 0 8px,
+    var(--lavender) 8px 16px
+  );
+  border-radius: 4px;
+}
+
+/* 학생증 본체: rotate(3deg)로 살짝 기울임, 하늘색 그림자로 스티커 느낌 */
+.idcard {
+  position: relative;
+  width: min(340px,100%);
+  background: #fff;
+  border: 2.5px solid var(--ink);
+  border-radius: var(--r-lg);
+  box-shadow: 8px 8px 0 var(--sky);
+  transform: rotate(3deg);
+  overflow: hidden;
+}
+
+/* 학생증 윗부분 파란 띠 (학교 이름) */
+.idcard-top {
+  background: var(--blue);
+  color: #fff;
+  padding: 26px 22px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.idcard-top span {
+  font-family: "Jua",sans-serif;
+  font-size: 20px;
+}
+
+.idcard-top small {
+  opacity: .9;
+}
+
+/* 카드 위 구멍 (목걸이 줄 끼우는 부분) */
+.hole {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 10px;
+  border-radius: 99px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+
+/* 사진(110px) + 정보 2단 배치 */
+.idcard-body {
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+/* 프로필 사진 자리 — 실제 사진은 <img>로 교체하세요 */
+.photo {
+  width: 110px;
+  height: 136px;
+  border-radius: 14px;
+  background: var(--pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+  color: var(--pink-deep);
+  border: 2px dashed var(--pink-deep);
+}
+
+.idcard dl {
+  margin: 0;
+  font-size: 14px;
+  display: grid;
+  gap: 6px;
+}
+
+.idcard dt {
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.idcard dd {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+
+.idcard-foot {
+  border-top: 2px dashed var(--line);
+  padding: 12px 22px 16px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* 작은 태그(칩): 기본=보라, .g=에메랄드, .p=핑크, .b=파랑 */
+.chip {
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--lavender);
+  color: #5a3fb8;
+}
+
+.chip.g {
+  background: var(--mint);
+  color: var(--emerald-deep);
+}
+
+.chip.p {
+  background: var(--pink);
+  color: #b0325f;
+}
+
+.chip.b {
+  background: var(--sky);
+  color: #2d55bf;
+}
+
+/* 학생증 주변 장식 별 */
+.star {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+}
+
+.star.s1 {
+  right: 4%;
+  top: 16%;
+  color: var(--pink-deep);
+}
+
+.star.s2 {
+  left: 6%;
+  bottom: 6%;
+  color: var(--emerald);
+  width: 30px;
+  height: 30px;
+}
+
+/* ---------- 섹션 공통 ---------- */
+section.block {
+  padding: 88px 0;
+}
+
+/* 섹션 제목 줄 */
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.head h2 {
+  font-size: clamp(34px,4vw,46px);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 제목 앞 동글동글한 색 점: border-radius를 제각각 줘서 말랑한 모양 */
+.head h2 .blob {
+  width: 22px;
+  height: 22px;
+  border-radius: 40% 60% 55% 45%;
+  display: inline-block;
+}
+
+.head p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* ---------- 소개 ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 28px;
+}
+
+/* 왼쪽 자기소개 메모 박스 */
+.note {
+  background: #fff;
+  border: 2.5px solid var(--ink);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  font-size: 18px;
+}
+
+.note p {
+  margin: 0 0 14px;
+}
+
+/* 오른쪽 '요즘 좋아하는 것' 박스 */
+.likes {
+  background: var(--lavender);
+  border-radius: var(--r-lg);
+  padding: 32px;
+}
+
+.likes h3 {
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.likes ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.likes li {
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+/* 스티커처럼 보이게 항목마다 살짝씩 다르게 기울임 */
+.likes li:nth-child(odd) {
+  transform: rotate(-2deg);
+}
+
+.likes li:nth-child(3n) {
+  transform: rotate(2deg);
+}
+
+/* ---------- 프로젝트 ---------- */
+/* 2열 그리드 (모바일에선 아래 @media에서 1열로 바뀜) */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 28px;
+}
+
+.proj {
+  display: block;
+  text-decoration: none;
+  border: 2.5px solid var(--ink);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #fff;
+  transition: transform .15s, box-shadow .15s;
+}
+
+/* 마우스 올리면 카드가 살짝 떠오르며 그림자 생김 */
+.proj:hover {
+  transform: translate(-3px,-3px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+/* 썸네일 영역: 16:10 비율 고정 */
+.thumb {
+  aspect-ratio: 16/10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2.5px solid var(--ink);
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+/* 카드 순서대로 썸네일 배경색을 민트 → 핑크 → 하늘 → 연보라로 */
+.proj:nth-child(1) .thumb {
+  background: var(--mint);
+}
+
+.proj:nth-child(2) .thumb {
+  background: var(--pink);
+}
+
+.proj:nth-child(3) .thumb {
+  background: var(--sky);
+}
+
+.proj:nth-child(4) .thumb {
+  background: var(--lavender);
+}
+
+.proj-body {
+  padding: 22px 24px 26px;
+}
+
+.proj-body .tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.proj h3 {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.proj p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* ---------- 스킬 ---------- */
+.skills {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 24px;
+}
+
+.skill-box {
+  border-radius: var(--r-lg);
+  padding: 28px;
+}
+
+/* 박스 순서대로 민트 / 하늘 / 핑크 배경 */
+.skill-box:nth-child(1) {
+  background: var(--mint);
+}
+
+.skill-box:nth-child(2) {
+  background: var(--sky);
+}
+
+.skill-box:nth-child(3) {
+  background: var(--pink);
+}
+
+.skill-box h3 {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.skill-box ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.skill-box li {
+  display: grid;
+  gap: 6px;
+}
+
+/* 스킬 게이지: 바깥 막대(.bar) 안에 채워지는 막대(i)
+   채움 정도는 HTML의 width:%로 조절 */
+.bar {
+  height: 12px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.8);
+  border: 2px solid var(--ink);
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  border-radius: 99px;
+}
+
+/* ---------- 활동 & 수상 타임라인 ---------- */
+/* 왼쪽 보라색 점선이 타임라인 줄기 */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 28px;
+  border-left: 3px dotted var(--purple);
+  display: grid;
+  gap: 22px;
+}
+
+.timeline li {
+  position: relative;
+  background: #fff;
+  border: 2.5px solid var(--ink);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+
+/* 각 항목 왼쪽의 동그라미 표시 (항목마다 색 다르게) */
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -42px;
+  top: 24px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--purple);
+}
+
+.timeline li:nth-child(2)::before {
+  border-color: var(--emerald);
+}
+
+.timeline li:nth-child(3)::before {
+  border-color: var(--pink-deep);
+}
+
+.timeline li:nth-child(4)::before {
+  border-color: var(--blue);
+}
+
+.when {
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+.timeline strong {
+  font-family: "Jua",sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  display: block;
+}
+
+.timeline span.what {
+  color: var(--ink-soft);
+}
+
+/* ---------- 연락처 ---------- */
+.contact {
+  padding: 40px 0 64px;
+}
+
+/* 에메랄드 연락처 박스 */
+.memo {
+  position: relative;
+  background: var(--emerald);
+  color: #fff;
+  border-radius: 36px;
+  padding: 72px 48px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* 박스 모서리의 보라·핑크 동그라미 장식 (::before, ::after) */
+.memo::before, .memo::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.memo::before {
+  width: 220px;
+  height: 220px;
+  background: var(--purple);
+  opacity: .55;
+  left: -60px;
+  bottom: -80px;
+}
+
+.memo::after {
+  width: 160px;
+  height: 160px;
+  background: var(--pink);
+  opacity: .7;
+  right: -40px;
+  top: -50px;
+}
+
+/* 글자가 장식 동그라미보다 위에 오도록 */
+.memo > * {
+  position: relative;
+  z-index: 1;
+}
+
+.memo h2 {
+  font-size: clamp(34px,5vw,56px);
+  margin-bottom: 14px;
+}
+
+.memo p {
+  margin: 0 auto 30px;
+  max-width: 460px;
+  opacity: .95;
+}
+
+.memo .btn {
+  background: #fff;
+  color: var(--ink);
+  border-color: #fff;
+  box-shadow: 0 4px 0 var(--emerald-deep);
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.socials a {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.18);
+  text-decoration: none;
+}
+
+.socials a:hover {
+  background: rgba(255,255,255,.3);
+}
+
+footer {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 14px;
+  padding: 0 0 40px;
+}
+
+/* ---------- 반응형: 화면 폭 860px 이하(태블릿·모바일) ---------- */
+/* 2단 → 1단으로, 상단 메뉴는 숨김 */
+@media (max-width:860px) {
+  .hero .wrap, .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .projects {
+    grid-template-columns: 1fr;
+  }
+  .skills {
+    grid-template-columns: 1fr;
+  }
+  .nav ul {
+    display: none;
+  }
+  .timeline li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .memo {
+    padding: 56px 24px;
+  }
+}
+
+/* '동작 줄이기' 설정을 켠 사용자에게는 애니메이션 끄기 (접근성) */
+@media (prefers-reduced-motion:reduce) {
+  * {
+    transition: none!important;
+    scroll-behavior: auto!important;
+  }
+}
+</style>
 </head>
 <body>
-    <H1>HI I'm TAE-IN</H1>
-    <h3>만나서 반가워요</h3>
+
+<!-- ==================== 상단 메뉴바 ==================== -->
+<!-- href="#about" 처럼 # + 섹션 id 를 적으면 해당 섹션으로 이동해요 -->
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="logo-dot"></span>[경영학과 멋쟁이]</a>
+    <nav aria-label="메인 메뉴">
+      <ul>
+        <li><a class="link" href="#about">소개</a></li>
+        <li><a class="link" href="#projects">프로젝트</a></li>
+        <li><a class="link" href="#skills">스킬</a></li>
+        <li><a class="link" href="#activities">활동</a></li>
+        <li><a class="link" href="#contact">연락</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ==================== 첫 화면: 인사말 + 학생증 ==================== -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <!-- 왼쪽: 인사말, 이름, 짧은 소개, 버튼 -->
+        <span class="hello">안녕하세요, 반가워요!</span>
+        <!-- <br>은 줄바꿈, <span class="name">은 형광펜 효과가 들어가는 부분 -->
+        <h1>
+          [경영학과] [2학년]<br>
+          <span class="name">[이태인]</span>의<br>
+          포트폴리오예요
+        </h1>
+        <p>
+          [여행과 모험, 자연을 돌아보는게 좋아요.<br>
+          아웃도어 브랜드를 론칭 하고싶어요.]
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="#projects">프로젝트 구경하기</a>
+          <a class="btn ghost" href="#contact">연락하기</a>
+        </div>
+      </div>
+
+      <!-- 오른쪽: 학생증 카드 -->
+      <div class="idcard-zone">
+        <!-- 장식용 별 2개 (aria-hidden: 화면낭독기가 읽지 않도록) -->
+        <svg class="star s1" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.5 6.8L12 17
+                   l-5.5 3.5L8 13.7 3 9.3l6.4-.7z"/>
+        </svg>
+        <svg class="star s2" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.5 6.8L12 17
+                   l-5.5 3.5L8 13.7 3 9.3l6.4-.7z"/>
+        </svg>
+        <div class="lanyard" aria-hidden="true"></div>
+        <article class="idcard" aria-label="학생증 형태의 프로필">
+          <span class="hole" aria-hidden="true"></span>
+          <div class="idcard-top">
+            <span>[연성대학교]</span>
+            <small>학생증</small>
+          </div>
+          <div class="idcard-body">
+            <!-- 사진 넣기: 아래 <div class="photo">…</div> 대신
+                 <img class="photo" src="내사진.jpg"
+                      alt="[이름] 프로필 사진" style="object-fit:cover"> -->
+            <img class="photo" src="증명사진.jpg"
+                      alt="[이름] 프로필 사진" style="object-fit:cover">
+            <!-- dl/dt/dd: '항목 이름 : 값' 목록 -->
+            <dl>
+              <div>
+                <dt>이름</dt>
+                <dd>[이태인]</dd>
+              </div>
+              <div>
+                <dt>전공</dt>
+                <dd>[경영학부 / 경영학 전공]</dd>
+              </div>
+              <div>
+                <dt>학번</dt>
+                <dd>[2025101343]</dd>
+              </div>
+            </dl>
+          </div>
+          <!-- 관심분야 태그 — chip 뒤 g/p/b로 색 바꾸기 -->
+          <div class="idcard-foot">
+            <span class="chip g">[창업]</span>
+            <span class="chip p">[프레젠테이션]</span>
+            <span class="chip b">[전략 / 기획]</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 소개 ==================== -->
+  <section class="block" id="about">
+    <div class="wrap">
+      <div class="head">
+        <h2>
+          <span class="blob" style="background:var(--pink-deep)"></span>
+          저는 이런 사람이에요
+        </h2>
+      </div>
+      <div class="about-grid">
+        <!-- 자기소개 문단 (<p> 하나가 한 문단) -->
+        <div class="note">
+          <p>
+            [어떤 계기로 지금 전공을 선택했는지,
+            공부하면서 어떤 순간이 가장 재밌었는지 적어주세요.]
+          </p>
+          <p>[일하는 스타일이나 팀플에서 주로 맡는 역할도 좋아요.]</p>
+        </div>
+        <!-- 좋아하는 것: <li> 줄을 복사해서 늘리거나 지우면 돼요 -->
+        <div class="likes">
+          <h3>요즘 좋아하는 것</h3>
+          <ul>
+            <li>[여행을 좋아해요]</li>
+            <li>[특성화고 앱서비스과 출신]</li>
+            <li>[계속해서 배우고, 발전하고싶어요]</li>
+            <li>[취미: 등산!]</li>
+            <li>[최근 읽은 책: 당신은 무엇이든 해내는 사람.]</li>
+            <li>[INTJ]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 프로젝트 ==================== -->
+  <section class="block" id="projects">
+    <div class="wrap">
+      <div class="head">
+        <h2>
+          <span class="blob" style="background:var(--emerald)"></span>
+          프로젝트
+        </h2>
+        <p>수업, 팀플, 개인 작업에서 골라봤어요.</p>
+      </div>
+      <div class="projects">
+        <!-- 프로젝트 카드 1개 = <a class="proj"> ~ </a>.
+             href에 상세 페이지나 GitHub 링크를 넣으세요.
+             카드를 늘리려면 이 블록을 통째로 복사해서 붙여넣기 -->
+        <a class="proj" href="#">
+          <!-- 썸네일: 이미지로 바꾸려면 아래 div 안에 넣기
+               <img src="이미지.jpg" alt="설명"
+                    style="width:100%;height:100%;object-fit:cover"> -->
+          <div class="thumb">[썸네일 이미지]</div>
+          <div class="proj-body">
+            <div class="tags">
+              <span class="chip g">팀 프로젝트</span>
+              <span class="chip">[기간]</span>
+            </div>
+            <h3>[프로젝트 이름 1]</h3>
+            <p>[무엇을 만들었고, 내가 맡은 역할은 무엇이었는지 한두 줄.]</p>
+          </div>
+        </a>
+        <a class="proj" href="#">
+          <div class="thumb">[썸네일 이미지]</div>
+          <div class="proj-body">
+            <div class="tags">
+              <span class="chip p">수업 과제</span>
+              <span class="chip">[기간]</span>
+            </div>
+            <h3>[프로젝트 이름 2]</h3>
+            <p>[무엇을 만들었고, 내가 맡은 역할은 무엇이었는지 한두 줄.]</p>
+          </div>
+        </a>
+        <a class="proj" href="#">
+          <div class="thumb">[썸네일 이미지]</div>
+          <div class="proj-body">
+            <div class="tags">
+              <span class="chip b">공모전</span>
+              <span class="chip">[기간]</span>
+            </div>
+            <h3>[프로젝트 이름 3]</h3>
+            <p>[무엇을 만들었고, 내가 맡은 역할은 무엇이었는지 한두 줄.]</p>
+          </div>
+        </a>
+        <a class="proj" href="#">
+          <div class="thumb">[썸네일 이미지]</div>
+          <div class="proj-body">
+            <div class="tags">
+              <span class="chip">개인 작업</span>
+              <span class="chip">[기간]</span>
+            </div>
+            <h3>[프로젝트 이름 4]</h3>
+            <p>[무엇을 만들었고, 내가 맡은 역할은 무엇이었는지 한두 줄.]</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 스킬 ==================== -->
+  <!-- 게이지 채움 정도는 style="width:80%" 숫자로 조절 -->
+  <section class="block" id="skills">
+    <div class="wrap">
+      <div class="head">
+        <h2>
+          <span class="blob" style="background:var(--blue)"></span>
+          할 수 있는 것
+        </h2>
+      </div>
+      <div class="skills">
+        <div class="skill-box">
+          <h3>[분야 1]</h3>
+          <ul>
+            <li>
+              [스킬 A]
+              <div class="bar"><i style="width:80%"></i></div>
+            </li>
+            <li>
+              [스킬 B]
+              <div class="bar"><i style="width:65%"></i></div>
+            </li>
+            <li>
+              [스킬 C]
+              <div class="bar"><i style="width:50%"></i></div>
+            </li>
+          </ul>
+        </div>
+        <div class="skill-box">
+          <h3>[분야 2]</h3>
+          <ul>
+            <li>
+              [스킬 A]
+              <div class="bar"><i style="width:75%"></i></div>
+            </li>
+            <li>
+              [스킬 B]
+              <div class="bar"><i style="width:60%"></i></div>
+            </li>
+            <li>
+              [스킬 C]
+              <div class="bar"><i style="width:40%"></i></div>
+            </li>
+          </ul>
+        </div>
+        <div class="skill-box">
+          <h3>[툴 / 기타]</h3>
+          <ul>
+            <li>
+              [툴 A]
+              <div class="bar"><i style="width:85%"></i></div>
+            </li>
+            <li>
+              [툴 B]
+              <div class="bar"><i style="width:70%"></i></div>
+            </li>
+            <li>
+              [툴 C]
+              <div class="bar"><i style="width:55%"></i></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 활동 & 수상 ==================== -->
+  <!-- 최신 활동이 위로 오게 적어주세요. <li> 하나가 항목 하나 -->
+  <section class="block" id="activities">
+    <div class="wrap">
+      <div class="head">
+        <h2>
+          <span class="blob" style="background:var(--purple)"></span>
+          활동 &amp; 수상
+        </h2>
+      </div>
+      <ol class="timeline" reversed>
+        <li>
+          <span class="when">[2026.02 ~ 현재]</span>
+          <div>
+            <strong>[제42대 총학생회]</strong>
+            <span class="what">[총학생회 임원: 지도부장]</span>
+          </div>
+        </li>
+        <li>
+          <span class="when">[2026.02 ~ 현재]</span>
+          <div>
+            <strong>[경영학과 학생회]</strong>
+            <span class="what">[경영학과 학과대표]</span>
+          </div>
+        </li>
+        <li>
+          <span class="when">[2026.09.16 ~ 18]</span>
+          <div>
+            <strong>[AI취업메이트 캠프]</strong>
+            <span class="what">[AI 사용 역량을 기르고, 취업 및 목표 기업과 직무에 대한 탐색을 했습니다!]</span>
+          </div>
+        </li>
+        <li>
+          <span class="when">[2026.02.08 ~ 14]</span>
+          <div>
+            <strong>[2026 한일 지역공생 글로컬 창업 경진대회]</strong>
+            <span class="what">[TEME: 자오가자오] ["2등" 미야기현의회 의장상]</span>
+          </div>
+        </li>
+        <li>
+          <span class="when">[2025.02.21]</span>
+          <div>
+            <strong>[연성대학교] [경영학과] 입학</strong>
+            <span class="what">[평점 4.0 이상으로 졸업 할게요!]</span>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ==================== 연락처 ==================== -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="memo">
+        <h2>같이 이야기 나눠요!</h2>
+        <p>
+          프로젝트 제안, 스터디, 인턴 기회 모두 환영해요. 편하게 메일 주세요.
+        </p>
+        <!-- mailto: 뒤에 이메일을 적으면 클릭 시 메일 앱이 열려요 -->
+        <a class="btn" href="mailto:[이메일 주소]">[이메일 주소]</a>
+        <!-- SNS 링크: href="#" 을 실제 주소로 바꾸세요 -->
+        <div class="socials">
+          <a href="#">GitHub</a>
+          <a href="#">Instagram</a>
+          <a href="#">블로그</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ==================== 맨 아래 푸터 ==================== -->
+<footer>© 2026 [이름]. 직접 만든 포트폴리오예요.</footer>
+
 </body>
 </html>
