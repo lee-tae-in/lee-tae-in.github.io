@@ -1,9 +1,9 @@
 <!doctype html>
 <!--
   ============================================================
-  [이름] 포트폴리오 — index.html
+  이태인 포트폴리오 — index.html
   - 이 파일 하나에 HTML(구조) + CSS(디자인)가 모두 들어 있어요.
-  - [대괄호]로 된 부분을 본인 내용으로 바꾸면 돼요.
+  - 내용을 바꿀 땐 HTML 아래쪽 섹션별 주석을 참고하세요.
   - GitHub Pages 등에 이 파일 하나만 올려도 바로 동작해요.
   ============================================================
 -->
@@ -13,7 +13,7 @@
 <!-- 모바일에서 화면 크기에 맞게 보이도록 해주는 설정 (지우지 마세요) -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 브라우저 탭에 보이는 제목 -->
-<title>[이태인] 포트폴리오</title>
+<title>이태인 포트폴리오</title>
 <!-- 구글 폰트 불러오기: Jua(제목용, 둥글고 귀여운 느낌) + Gowun Dodum(본문용) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -831,7 +831,7 @@ footer {
 <!-- href="#about" 처럼 # + 섹션 id 를 적으면 해당 섹션으로 이동해요 -->
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#top"><span class="logo-dot"></span>[경영학과 멋쟁이]</a>
+    <a class="logo" href="#top"><span class="logo-dot"></span>이태인</a>
     <nav aria-label="메인 메뉴">
       <ul>
         <li><a class="link" href="#about">소개</a></li>
@@ -850,16 +850,16 @@ footer {
     <div class="wrap">
       <div>
         <!-- 왼쪽: 인사말, 이름, 짧은 소개, 버튼 -->
-        <span class="hello">안녕하세요, 반가워요!</span>
+        <span class="hello">안녕하세요, 경영학과 멋쟁이예요!</span>
         <!-- <br>은 줄바꿈, <span class="name">은 형광펜 효과가 들어가는 부분 -->
         <h1>
-          [경영학과] [2학년]<br>
-          <span class="name">[이태인]</span>의<br>
+          경영학과 2학년<br>
+          <span class="name">이태인</span>의<br>
           포트폴리오예요
         </h1>
         <p>
-          [여행과 모험, 자연과 교감하는게 좋아요.<br>
-          아웃도어 브랜드를 론칭 하고싶어요.]
+          여행과 모험, 자연과 교감하는 게 좋아요.<br>
+          언젠가 제 아웃도어 브랜드를 론칭하고 싶어요.
         </p>
         <div class="btns">
           <a class="btn primary" href="#projects">프로젝트 구경하기</a>
@@ -884,36 +884,39 @@ footer {
         <article class="idcard" aria-label="학생증 형태의 프로필">
           <span class="hole" aria-hidden="true"></span>
           <div class="idcard-top">
-            <span>[연성대학교]</span>
+            <span>연성대학교</span>
             <small>학생증</small>
           </div>
           <div class="idcard-body">
             <!-- 사진 넣기: 아래 <div class="photo">…</div> 대신
                  <img class="photo" src="내사진.jpg"
-                      alt="[이름] 프로필 사진" style="object-fit:cover"> -->
-            <img class="photo" src="증명사진.jpg"
-                      alt="[이름] 프로필 사진" style="object-fit:cover">
+                      alt="이름 프로필 사진" style="object-fit:cover"> -->
+            <!-- 사진 파일 이름을 profile.jpg 로 바꿔서 같은 폴더에 올려주세요
+                 (한글 파일명은 서버에 따라 깨질 수 있어요) -->
+            <img class="photo" src="profile.jpg"
+                 alt="이태인 프로필 사진" style="object-fit:cover">
             <!-- dl/dt/dd: '항목 이름 : 값' 목록 -->
             <dl>
               <div>
                 <dt>이름</dt>
-                <dd>[이태인]</dd>
+                <dd>이태인</dd>
               </div>
               <div>
                 <dt>전공</dt>
-                <dd>[경영학부 / 경영학 전공]</dd>
+                <dd>경영학부 / 경영학 전공</dd>
               </div>
               <div>
+                <!-- 학번 전체는 본인 확인에 쓰일 수 있어서 입학년도만 표시 -->
                 <dt>학번</dt>
-                <dd>[2025101343]</dd>
+                <dd>2025학번</dd>
               </div>
             </dl>
           </div>
           <!-- 관심분야 태그 — chip 뒤 g/p/b로 색 바꾸기 -->
           <div class="idcard-foot">
-            <span class="chip g">[창업]</span>
-            <span class="chip p">[프레젠테이션]</span>
-            <span class="chip b">[전략 / 기획]</span>
+            <span class="chip g">창업</span>
+            <span class="chip p">프레젠테이션</span>
+            <span class="chip b">전략 / 기획</span>
           </div>
         </article>
       </div>
@@ -932,22 +935,32 @@ footer {
       <div class="about-grid">
         <!-- 자기소개 문단 (<p> 하나가 한 문단) -->
         <div class="note">
+          <!-- 아래 문장은 초안이에요. 본인 말투와 실제 경험에 맞게 다듬어주세요 -->
           <p>
-            [어떤 계기로 지금 전공을 선택했는지,
-            공부하면서 어떤 순간이 가장 재밌었는지 적어주세요.]
+            특성화고 앱서비스과에서 앱을 만들며 공부했어요.
+            만드는 것도 재밌었지만, 그걸로 사람들이 쓰고 싶은
+            서비스와 사업을 만드는 쪽에 더 끌려서 경영학과에 왔어요.
           </p>
-          <p>[일하는 스타일이나 팀플에서 주로 맡는 역할도 좋아요.]</p>
+          <p>
+            총학생회 지도부장과 학과대표를 맡으면서 사람들의 의견을 모으고,
+            일이 끝까지 굴러가도록 챙기는 역할을 주로 해요.
+            팀플에서도 방향을 정리하고 발표를 맡는 편이에요.
+          </p>
+          <p>
+            산과 여행에서 얻은 에너지를 언젠가
+            제 아웃도어 브랜드로 풀어내는 게 목표예요.
+          </p>
         </div>
         <!-- 좋아하는 것: <li> 줄을 복사해서 늘리거나 지우면 돼요 -->
         <div class="likes">
           <h3>나를 표현하는 키워드</h3>
           <ul>
-            <li>[여행을 좋아해요]</li>
-            <li>[특성화고 앱서비스과 출신]</li>
-            <li>[계속해서 배우고, 발전하고싶어요]</li>
-            <li>[취미: 등산!]</li>
-            <li>[최근 읽은 책: 당신은 무엇이든 해내는 사람.]</li>
-            <li>[INTJ]</li>
+            <li>여행을 좋아해요</li>
+            <li>특성화고 앱서비스과 출신</li>
+            <li>계속 배우고 발전하고 싶어요</li>
+            <li>취미: 등산!</li>
+            <li>최근 읽은 책: 당신은 무엇이든 해내는 사람</li>
+            <li>INTJ</li>
           </ul>
         </div>
       </div>
@@ -962,57 +975,44 @@ footer {
           <span class="blob" style="background:var(--emerald)"></span>
           프로젝트
         </h2>
-        <p>수업, 팀플, 개인 작업에서 골라봤어요.</p>
+        <p>팀 프로젝트와 개인 작업에서 골라봤어요.</p>
       </div>
       <div class="projects">
         <!-- 프로젝트 카드 1개 = <a class="proj"> ~ </a>.
              href에 상세 페이지나 GitHub 링크를 넣으세요.
              카드를 늘리려면 이 블록을 통째로 복사해서 붙여넣기 -->
-        <a class="proj" href="#">
+        <a class="proj" href="#activities">
           <!-- 썸네일: 이미지로 바꾸려면 아래 div 안에 넣기
                <img src="이미지.jpg" alt="설명"
                     style="width:100%;height:100%;object-fit:cover"> -->
-          <div class="thumb">[썸네일 이미지]</div>
+          <div class="thumb" style="font-family:'Jua',sans-serif;font-size:34px;color:var(--ink)"><img src="miyagi.jpg" alt="설명"
+                    style="width:100%;height:100%;object-fit:cover"></div>
           <div class="proj-body">
             <div class="tags">
               <span class="chip g">팀 프로젝트</span>
-              <span class="chip">[기간]</span>
+              <span class="chip p">2등 수상</span>
+              <span class="chip">2026.02</span>
             </div>
-            <h3>[프로젝트 이름 1]</h3>
-            <p>[무엇을 만들었고, 내가 맡은 역할은 무엇이었는지 한두 줄.]</p>
+            <h3>한일 지역공생 글로컬 창업 경진대회</h3>
+            <!-- 어떤 아이템이었는지, 내가 맡은 역할을 구체적으로 적으면 더 좋아요 -->
+            <p>
+              자오가자오 팀으로 지역 상생 창업 아이템을 기획하고 발표해서<br>
+              미야기현의회 의장상(2등)을 받았어요.
+            </p>
           </div>
         </a>
-        <a class="proj" href="#">
-          <div class="thumb">[썸네일 이미지]</div>
+        <a class="proj" href="https://github.com/lee-tae-in">
+          <div class="thumb" style="font-family:'Jua',sans-serif;font-size:34px;color:var(--ink)">이 사이트!</div>
           <div class="proj-body">
             <div class="tags">
-              <span class="chip p">수업 과제</span>
-              <span class="chip">[기간]</span>
+              <span class="chip b">개인 작업</span>
+              <span class="chip">2026.10</span>
             </div>
-            <h3>[프로젝트 이름 2]</h3>
-            <p>[무엇을 만들었고, 내가 맡은 역할은 무엇이었는지 한두 줄.]</p>
-          </div>
-        </a>
-        <a class="proj" href="#">
-          <div class="thumb">[썸네일 이미지]</div>
-          <div class="proj-body">
-            <div class="tags">
-              <span class="chip b">공모전</span>
-              <span class="chip">[기간]</span>
-            </div>
-            <h3>[프로젝트 이름 3]</h3>
-            <p>[무엇을 만들었고, 내가 맡은 역할은 무엇이었는지 한두 줄.]</p>
-          </div>
-        </a>
-        <a class="proj" href="#">
-          <div class="thumb">[썸네일 이미지]</div>
-          <div class="proj-body">
-            <div class="tags">
-              <span class="chip">개인 작업</span>
-              <span class="chip">[기간]</span>
-            </div>
-            <h3>[프로젝트 이름 4]</h3>
-            <p>[무엇을 만들었고, 내가 맡은 역할은 무엇이었는지 한두 줄.]</p>
+            <h3>나만의 포트폴리오 웹사이트</h3>
+            <p>
+              HTML과 CSS로 직접 꾸미고 GitHub Pages로 배포한<br>
+              지금 보고 계신 이 사이트예요.
+            </p>
           </div>
         </a>
       </div>
@@ -1031,53 +1031,58 @@ footer {
       </div>
       <div class="skills">
         <div class="skill-box">
-          <h3>[분야 1]</h3>
+          <!-- 게이지 %는 대략 잡아둔 값이에요. 본인 자신감에 맞게 조절하세요 -->
+          <h3>기획 / 전략</h3>
           <ul>
             <li>
-              [스킬 A]
+              아이디어 피칭
               <div class="bar"><i style="width:80%"></i></div>
             </li>
             <li>
-              [스킬 B]
-              <div class="bar"><i style="width:65%"></i></div>
+              사업계획서 작성
+              <div class="bar"><i style="width:70%"></i></div>
             </li>
             <li>
-              [스킬 C]
-              <div class="bar"><i style="width:50%"></i></div>
-            </li>
-          </ul>
-        </div>
-        <div class="skill-box">
-          <h3>[분야 2]</h3>
-          <ul>
-            <li>
-              [스킬 A]
-              <div class="bar"><i style="width:75%"></i></div>
-            </li>
-            <li>
-              [스킬 B]
+              시장 조사
               <div class="bar"><i style="width:60%"></i></div>
             </li>
-            <li>
-              [스킬 C]
-              <div class="bar"><i style="width:40%"></i></div>
-            </li>
           </ul>
         </div>
         <div class="skill-box">
-          <h3>[문서작업]</h3>
+          <h3>커뮤니케이션</h3>
           <ul>
             <li>
-              [파워포인트]
-              <div class="bar"><i style="width:92%"></i></div>
-            </li>
-            <li>
-              [MS-word & 한글]
+              발표
               <div class="bar"><i style="width:85%"></i></div>
             </li>
             <li>
-              [MS-EXCEL]
+              팀 리딩
+              <div class="bar"><i style="width:80%"></i></div>
+            </li>
+            <li>
+              행사 운영
+              <div class="bar"><i style="width:70%"></i></div>
+            </li>
+          </ul>
+        </div>
+        <div class="skill-box">
+          <h3>문서 / 툴</h3>
+          <ul>
+            <li>
+              파워포인트
+              <div class="bar"><i style="width:92%"></i></div>
+            </li>
+            <li>
+              MS Word &amp; 한글
+              <div class="bar"><i style="width:85%"></i></div>
+            </li>
+            <li>
+              MS Excel
               <div class="bar"><i style="width:60%"></i></div>
+            </li>
+            <li>
+              HTML / CSS
+              <div class="bar"><i style="width:45%"></i></div>
             </li>
           </ul>
         </div>
@@ -1097,38 +1102,43 @@ footer {
       </div>
       <ol class="timeline" reversed>
         <li>
-          <span class="when">[2026.02 ~ 현재]</span>
+          <span class="when">2026.09.16 ~ 18</span>
           <div>
-            <strong>[제42대 총학생회 백야]</strong>
-            <span class="what">[총학생회 임원: 지도부장]</span>
+            <strong>AI취업메이트 캠프</strong>
+            <span class="what">
+              AI 활용 역량을 기르고, 목표 기업과 직무를 탐색했어요.
+            </span>
           </div>
         </li>
         <li>
-          <span class="when">[2026.02 ~ 현재]</span>
+          <span class="when">2026.02.08 ~ 14</span>
           <div>
-            <strong>[경영학과 학생회]</strong>
-            <span class="what">[경영학과 학과대표]</span>
+            <strong>2026 한일 지역공생 글로컬 창업 경진대회</strong>
+            <span class="what">
+              <span class="chip p">수상</span>
+              TEAM 자오가자오, 2등 미야기현의회 의장상
+            </span>
           </div>
         </li>
         <li>
-          <span class="when">[2026.09.16 ~ 18]</span>
+          <span class="when">2026.02 ~ 현재</span>
           <div>
-            <strong>[AI취업메이트 캠프]</strong>
-            <span class="what">[AI 사용 역량을 기르고, 취업 및 목표 기업과 직무에 대한 탐색을 했습니다!]</span>
+            <strong>제42대 총학생회 백야</strong>
+            <span class="what">총학생회 임원, 지도부장</span>
           </div>
         </li>
         <li>
-          <span class="when">[2026.02.08 ~ 14]</span>
+          <span class="when">2026.02 ~ 현재</span>
           <div>
-            <strong>[2026 한일 지역공생 글로컬 창업 경진대회]</strong>
-            <span class="what">[TEME: 자오가자오] ["2등" 미야기현의회 의장상]</span>
+            <strong>경영학과 학생회</strong>
+            <span class="what">경영학과 학과대표</span>
           </div>
         </li>
         <li>
-          <span class="when">[2025.02.21]</span>
+          <span class="when">2025.02.21</span>
           <div>
-            <strong>[연성대학교] [경영학과] 입학</strong>
-            <span class="what">[평점 4.0 이상으로 졸업 할게요!]</span>
+            <strong>연성대학교 경영학과 입학</strong>
+            <span class="what">평점 4.0 이상으로 졸업할게요!</span>
           </div>
         </li>
       </ol>
@@ -1144,12 +1154,11 @@ footer {
           프로젝트 제안, 스터디, 인턴 기회 모두 환영해요. 편하게 메일 주세요.
         </p>
         <!-- mailto: 뒤에 이메일을 적으면 클릭 시 메일 앱이 열려요 -->
-        <a class="btn" href="mailto:[ti7209737@naver.com]">[이메일 주소]</a>
-        <!-- SNS 링크: href="#" 을 실제 주소로 바꾸세요 -->
+        <a class="btn" href="mailto:ti7209737@naver.com">ti7209737@naver.com</a>
+        <!-- SNS 링크: 블로그가 생기면 <a> 줄을 하나 더 추가하세요 -->
         <div class="socials">
-          <a href="https://github.com/">GitHub</a>
-          <a href="https://www.instagram.com/taeinle2222?stkn=MTJvanc4cjQzMjJkMQ%3D%3D&utm_source=qr">Instagram</a>
-          <a href="#">블로그</a>
+          <a href="https://github.com/lee-tae-in">GitHub</a>
+          <a href="https://www.instagram.com/taeinle2222/">Instagram</a>
         </div>
       </div>
     </div>
@@ -1157,7 +1166,7 @@ footer {
 </main>
 
 <!-- ==================== 맨 아래 푸터 ==================== -->
-<footer>© 2026 [이태인]. 직접 만든 포트폴리오예요.</footer>
+<footer>© 2026 이태인. 직접 만든 포트폴리오예요.</footer>
 
 </body>
 </html>
