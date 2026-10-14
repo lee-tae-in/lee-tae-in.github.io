@@ -14,6 +14,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 브라우저 탭에 보이는 제목 -->
 <title>이태인 포트폴리오</title>
+
+<!-- 검색엔진·링크 공유용 한 줄 소개 -->
+<meta name="description" content="산을 좋아하는 예비 창업가, 연성대학교 경영학과 이태인의 포트폴리오예요.">
+
+<!-- 카톡·인스타·페이스북 등에 링크를 보낼 때 뜨는 미리보기 카드
+     og-image.png 파일을 index.html과 같은 폴더에 올려주세요 (1200x630) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lee-tae-in.github.io/">
+<meta property="og:title" content="이태인 포트폴리오">
+<meta property="og:description" content="산을 좋아하는 예비 창업가, 연성대학교 경영학과 이태인이에요.">
+<meta property="og:image" content="https://lee-tae-in.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- 브라우저 탭 아이콘(파비콘): 로고와 같은 에메랄드·핑크·보라 점 3개 (별도 파일 필요 없음) -->
+<link rel="icon" type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23fdfcff'/%3E%3Ccircle cx='46' cy='32' r='12' fill='%238a6be0'/%3E%3Ccircle cx='32' cy='32' r='12' fill='%23e2578a'/%3E%3Ccircle cx='18' cy='32' r='12' fill='%230f9e7b'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#fdfcff">
 <!-- 구글 폰트 불러오기: Jua(제목용, 둥글고 귀여운 느낌) + Gowun Dodum(본문용) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -153,6 +173,40 @@ img {
   border-radius: 999px;
   text-decoration: none;
   font-size: 16px;
+}
+
+/* 메뉴 버튼(줄 3개): 평소엔 숨김, 휴대폰에서만 보임 */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.menu-btn span {
+  display: block;
+  width: 20px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: transform .25s, opacity .2s;
+}
+
+/* 메뉴가 열리면 줄 3개 → X 모양 */
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
 }
 
 /* 메뉴에 마우스 올리면 연보라 배경 */
@@ -604,6 +658,13 @@ section.block {
   transform: rotateY(180deg);
 }
 
+/* 컴퓨터·휴대폰 모두 처음부터 앞면으로 보이게
+   (마우스를 올리거나 탭하면 그 카드가 앞으로 나와서 크게 보임)
+   다시 '뒷면 → 뒤집기' 방식으로 돌리고 싶으면 이 규칙을 지우면 돼요 */
+.pflip {
+  transform: rotateY(180deg);
+}
+
 /* 앞면/뒷면 공통: 뒤를 향하면 안 보이게 */
 .pface {
   position: absolute;
@@ -726,6 +787,14 @@ section.block {
   .proj-body { padding: 8px 10px; }
   .proj-body h3 { font-size: 14px; }
   .proj-body p { display: none; }
+  /* 태그는 첫 번째만, 제목은 두 줄까지 */
+  .proj-body .chip:not(:first-child) { display: none; }
+  .proj-body h3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .pback .star { font-size: 44px; }
 }
 
@@ -865,6 +934,132 @@ section.block {
 
 .modal-close:hover {
   background: var(--pink);
+}
+
+/* ---------- 프로젝트 상세 팝업 ----------
+   음악 팝업 디자인을 그대로 쓰고, 조금 더 넓게 + 내용이 길면 안에서 스크롤 */
+.detail-modal {
+  width: min(640px, calc(100% - 32px));
+}
+
+.detail-modal .modal-head .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.detail-modal .modal-head h2 {
+  font-size: 28px;
+  word-break: keep-all;
+}
+
+/* 사진 모음: 큰 사진 1장 + 작은 사진 2장 */
+.d-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  height: 260px;
+  margin-bottom: 22px;
+}
+
+.d-gallery figure {
+  margin: 0;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--mint);
+}
+
+.d-gallery .d-main {
+  grid-row: span 2;
+}
+
+.d-gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 아직 사진이 없는 칸 */
+.d-gallery .d-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: dashed;
+  background: var(--lavender);
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+/* 내용 섹션 하나 */
+.d-sec {
+  padding: 16px 0;
+  border-top: 2px dashed var(--line);
+}
+
+.d-sec h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+/* 섹션 번호 동그라미 */
+.d-num {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-size: 13px;
+}
+
+.d-sec p {
+  margin: 0 0 6px;
+  font-size: 16px;
+  word-break: keep-all;
+}
+
+.d-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+  font-size: 16px;
+  word-break: keep-all;
+}
+
+/* 결과 섹션은 핑크 메모처럼 강조 */
+.d-result {
+  margin-top: 6px;
+  padding: 16px 18px;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  background: var(--pink);
+}
+
+.d-result strong {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.d-btn {
+  margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+  .d-gallery {
+    height: 200px;
+  }
+  .detail-modal .modal-head h2 {
+    font-size: 23px;
+  }
 }
 
 /* 팝업 안 플레이어 */
@@ -1037,29 +1232,30 @@ body:has(.music-modal[open]) {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
+/* 스킬 한 줄: 흰 메모지 위에 이름(굵게) + 근거(작게) */
 .skill-box li {
   display: grid;
-  gap: 6px;
-}
-
-/* 스킬 게이지: 바깥 막대(.bar) 안에 채워지는 막대(i)
-   채움 정도는 HTML의 width:%로 조절 */
-.bar {
-  height: 12px;
-  border-radius: 99px;
-  background: rgba(255,255,255,.8);
+  gap: 2px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,.75);
   border: 2px solid var(--ink);
-  overflow: hidden;
+  border-radius: 14px;
 }
 
-.bar i {
-  display: block;
-  height: 100%;
-  background: var(--ink);
-  border-radius: 99px;
+.skill-box li strong {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.skill-box li span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  word-break: keep-all;
 }
 
 /* ---------- 활동 & 수상 타임라인 ---------- */
@@ -1124,6 +1320,183 @@ body:has(.music-modal[open]) {
 
 .timeline span.what {
   color: var(--ink-soft);
+}
+
+/* ---------- 앞으로의 계획 (등산 로드맵) ----------
+   6단계가 오른쪽으로 갈수록 한 칸씩 높아지는 계단(산 오르기) 모양
+   --rise: 한 단계 올라갈 때 높이 */
+.climb {
+  --rise: 30px;
+  list-style: none;
+  margin: 0;
+  padding: calc(var(--rise) * 5 + 20px) 0 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+  position: relative;
+}
+
+/* 뒤에 깔린 점선 등산로 (왼쪽 아래 → 오른쪽 위) */
+.climb::before {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 40px;
+  height: calc(var(--rise) * 5 + 80px);
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 2px), var(--purple) calc(50% - 2px),
+      var(--purple) calc(50% + 1px), transparent calc(50% + 1px));
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 18px);
+  mask: repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 18px);
+  opacity: .5;
+  pointer-events: none;
+}
+
+.climb li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 16px 14px 18px;
+  background: #fff;
+  border: 2.5px solid var(--ink);
+  border-radius: var(--r-md);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+/* 단계마다 한 칸씩 위로 */
+.climb li:nth-child(2) { margin-top: calc(var(--rise) * -1); }
+.climb li:nth-child(3) { margin-top: calc(var(--rise) * -2); }
+.climb li:nth-child(4) { margin-top: calc(var(--rise) * -3); }
+.climb li:nth-child(5) { margin-top: calc(var(--rise) * -4); }
+.climb li:nth-child(6) { margin-top: calc(var(--rise) * -5); }
+
+/* 아이콘 + STEP 번호 줄 */
+.step-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 동그란 아이콘 배지 (단계마다 색 다르게) */
+.ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: var(--lavender);
+}
+
+.ic svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.climb li:nth-child(2) .ic { background: var(--sky); }
+.climb li:nth-child(3) .ic { background: var(--mint); }
+.climb li:nth-child(4) .ic { background: var(--pink); }
+.climb li:nth-child(5) .ic { background: var(--sky); }
+.climb li:nth-child(6) .ic { background: var(--lavender); }
+
+.climb .camp {
+  font-family: "Jua", sans-serif;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.climb strong {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+.climb .what {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  word-break: keep-all;
+}
+
+/* 지금 단계: 민트 배경 + '지금 여기!' 말풍선 */
+.climb .now {
+  background: var(--mint);
+}
+
+.climb .now .ic {
+  background: #fff;
+}
+
+.climb .here {
+  position: absolute;
+  top: -16px;
+  right: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--emerald);
+  color: #fff;
+  font-size: 13px;
+  animation: bob 1.6s ease-in-out infinite;
+}
+
+@keyframes bob {
+  50% { transform: translateY(-4px); }
+}
+
+/* 마지막 단계: 핑크 배경 + 깃발 */
+.climb .top {
+  background: var(--pink);
+}
+
+.climb .top .ic {
+  background: #fff;
+}
+
+.climb .top::after {
+  content: "";
+  position: absolute;
+  top: -46px;
+  right: 22px;
+  width: 30px;
+  height: 46px;
+  background:
+    linear-gradient(var(--pink-deep), var(--pink-deep)) 0 0 / 30px 20px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) 0 0 / 3px 46px no-repeat;
+  clip-path: polygon(0 0, 100% 22%, 3px 44%, 3px 100%, 0 100%);
+}
+
+/* 태블릿·휴대폰: 세로로 쌓되, 아래(STEP 1)에서 위(STEP 6)로 오르도록
+   순서를 뒤집고, 위로 갈수록 오른쪽으로 들여써서 오르는 느낌 */
+@media (max-width: 1000px) {
+  .climb {
+    grid-template-columns: 1fr;
+    padding-top: 40px;
+    gap: 22px;
+  }
+  .climb::before {
+    display: none;
+  }
+  .climb li:nth-child(n) {
+    margin-top: 0;
+  }
+  .climb strong { font-size: 19px; }
+  .climb li:nth-child(1) { order: 6; margin-right: 15%; }
+  .climb li:nth-child(2) { order: 5; margin-left: 3%;  margin-right: 12%; }
+  .climb li:nth-child(3) { order: 4; margin-left: 6%;  margin-right: 9%; }
+  .climb li:nth-child(4) { order: 3; margin-left: 9%;  margin-right: 6%; }
+  .climb li:nth-child(5) { order: 2; margin-left: 12%; margin-right: 3%; }
+  .climb li:nth-child(6) { order: 1; margin-left: 15%; }
 }
 
 /* ---------- 연락처 ---------- */
@@ -1218,7 +1591,7 @@ footer {
 }
 
 /* ---------- 반응형: 화면 폭 860px 이하(태블릿·모바일) ---------- */
-/* 2단 → 1단으로, 상단 메뉴는 숨김 */
+/* 2단 → 1단으로, 상단 메뉴는 버튼으로 접기 */
 @media (max-width:860px) {
   .hero .wrap, .about-grid {
     grid-template-columns: 1fr;
@@ -1226,8 +1599,31 @@ footer {
   .skills {
     grid-template-columns: 1fr;
   }
+  /* 휴대폰: 메뉴 버튼 보이기, 메뉴는 버튼 누르면 아래로 펼침 */
+  .menu-btn {
+    display: flex;
+  }
   .nav ul {
     display: none;
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    left: 16px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    background: #fff;
+    border: 2.5px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: 0 6px 0 var(--ink);
+  }
+  .nav ul.open {
+    display: flex;
+    animation: menu-in .25s ease-out;
+  }
+  .nav a.link {
+    padding: 14px 16px;
+    font-size: 17px;
   }
   .timeline li {
     grid-template-columns: 1fr;
@@ -1246,6 +1642,38 @@ footer {
     scroll-behavior: auto!important;
   }
 }
+
+/* ---------- 푸터 연락 아이콘 ---------- */
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink-soft);
+}
+.footer-social svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.footer-social--email { color: var(--emerald-deep); }
+.footer-social--instagram { color: var(--pink-deep); }
+.footer-social--youtube { color: var(--purple); }
+.footer-copyright { margin: 0; }
 </style>
 </head>
 <body>
@@ -1255,12 +1683,18 @@ footer {
 <header class="nav">
   <div class="wrap">
     <a class="logo" href="#top"><span class="logo-dot"></span>이태인</a>
+    <!-- 휴대폰에서만 보이는 메뉴 버튼 (누르면 아래로 메뉴 펼쳐짐) -->
+    <button class="menu-btn" type="button" aria-expanded="false"
+            aria-controls="main-menu" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
     <nav aria-label="메인 메뉴">
-      <ul>
+      <ul id="main-menu">
         <li><a class="link" href="#about">소개</a></li>
         <li><a class="link" href="#projects">프로젝트</a></li>
         <li><a class="link" href="#skills">스킬</a></li>
         <li><a class="link" href="#activities">활동</a></li>
+        <li><a class="link" href="#plan">계획</a></li>
         <li><a class="link" href="#contact">연락</a></li>
       </ul>
     </nav>
@@ -1273,12 +1707,12 @@ footer {
     <div class="wrap">
       <div>
         <!-- 왼쪽: 인사말, 이름, 짧은 소개, 버튼 -->
-        <span class="hello">안녕하세요, 경영학과 멋쟁이예요!</span>
+        <span class="hello">안녕하세요, 경영학과 2학년 멋쟁이예요!</span>
         <!-- <br>은 줄바꿈, <span class="name">은 형광펜 효과가 들어가는 부분 -->
         <h1>
-          경영학과 2학년<br>
-          <span class="name">이태인</span>의<br>
-          포트폴리오예요
+          산을 좋아하는<br>
+          예비 창업가,<br>
+          <span class="name">이태인</span>이에요
         </h1>
         <p>
           여행과 모험, 자연과 교감하는 게 좋아요.<br>
@@ -1378,10 +1812,10 @@ footer {
         <div class="likes">
           <h3>나를 표현하는 키워드</h3>
           <ul>
-            <li>여행을 좋아해요</li>
-            <li>특성화고 앱서비스과 출신</li>
+            <li>끝까지 챙기는 사람</li>
+            <li>말보다 실행</li>
             <li>계속 배우고 발전하고 싶어요</li>
-            <li>취미: 등산!</li>
+            <li>취미: 등산과 여행!</li>
             <li>최근 읽은 책: 당신은 무엇이든 해내는 사람</li>
             <li>INTJ</li>
           </ul>
@@ -1402,15 +1836,15 @@ footer {
       </div>
       <!-- 안내 문구: 컴퓨터(마우스)와 휴대폰(터치)에 따라 다르게 보임 -->
       <p class="stage-hint">
-        <span class="h-mouse">카드 위로 마우스를 옆으로 천천히 옮겨보세요</span>
-        <span class="h-touch">카드를 눌러서 뒤집어보세요</span>
+        <span class="h-mouse">카드 위로 마우스를 옆으로 옮겨 하나씩 살펴보세요</span>
+        <span class="h-touch">카드를 눌러서 하나씩 살펴보세요</span>
       </p>
       <!-- 카드 무대: <a class="pcard"> 한 묶음이 카드 한 장
            pback = 뒷면(번호), pfront = 앞면(내용)
            카드를 늘리려면 묶음을 통째로 복사해서 붙여넣고 뒷면 번호만 바꾸세요 -->
       <div class="pstage" id="pstage">
 
-        <a class="pcard" href="#activities" aria-label="프로젝트 1: 한일 지역공생 글로컬 창업 경진대회">
+        <a class="pcard" href="#detail-contest" data-open="detail-contest" aria-label="프로젝트 1: 한일 지역공생 글로컬 창업 경진대회, 누르면 자세히 보기">
           <div class="pflip">
             <div class="pface pback"><span class="star" aria-hidden="true">&#9733;</span><span class="no">01</span></div>
             <div class="pface pfront">
@@ -1431,7 +1865,7 @@ footer {
           </div>
         </a>
 
-        <a class="pcard" href="https://github.com/lee-tae-in" aria-label="프로젝트 2: 나만의 포트폴리오 웹사이트">
+        <a class="pcard" href="#detail-site" data-open="detail-site" aria-label="프로젝트 2: 나만의 포트폴리오 웹사이트, 누르면 자세히 보기">
           <div class="pflip">
             <div class="pface pback"><span class="star" aria-hidden="true">&#9733;</span><span class="no">02</span></div>
             <div class="pface pfront">
@@ -1449,7 +1883,7 @@ footer {
         </a>
 
         <!-- 3번째 카드: 캠프 사진이 있으면 thumb 안 글자 대신 <img> 넣기 -->
-        <a class="pcard" href="#activities" aria-label="프로젝트 3: AI취업메이트 캠프">
+        <a class="pcard" href="#detail-camp" data-open="detail-camp" aria-label="프로젝트 3: AI취업메이트 캠프, 누르면 자세히 보기">
           <div class="pflip">
             <div class="pface pback"><span class="star" aria-hidden="true">&#9733;</span><span class="no">03</span></div>
             <div class="pface pfront">
@@ -1468,13 +1902,13 @@ footer {
 
         <!-- 4번째 카드: Suno 음악 — 앞면이 보일 때 누르면 '음악 팝업'이 열려요
              data-open 값 = 열릴 팝업의 id -->
-        <a class="pcard" href="#music-modal" data-open="music-modal" aria-label="프로젝트 4: Suno AI로 만든 음악, 누르면 노래 목록이 열려요">
+        <a class="pcard" href="#music-modal" data-open="music-modal" aria-label="프로젝트 4: 브랜드를 소리로 기획하기, 누르면 노래 목록이 열려요">
           <div class="pflip">
             <div class="pface pback"><span class="star" aria-hidden="true">&#9733;</span><span class="no">04</span></div>
             <div class="pface pfront">
               <div class="thumb music-thumb">
                 <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-                <span class="thumb-text" style="padding:0">내가 만든 노래</span>
+                <span class="thumb-text" style="padding:0">브랜드 사운드</span>
                 <span class="tap">눌러서 듣기</span>
               </div>
               <div class="proj-body">
@@ -1483,8 +1917,8 @@ footer {
                   <span class="chip b">Suno AI</span>
                   <span class="chip g">3곡</span>
                 </div>
-                <h3>Suno AI로 만든 음악</h3>
-                <p>브랜드와 축제를 위한 노래 3곡</p>
+                <h3>브랜드를 소리로 기획하기</h3>
+                <p>아웃도어, 축제, 업사이클링 브랜드를 위한 음악 3곡</p>
               </div>
             </div>
           </div>
@@ -1504,39 +1938,40 @@ footer {
           할 수 있는 것
         </h2>
       </div>
+      <!-- 스킬 하나 = <li> 안에 <strong>이름</strong> + <span>근거 한 줄</span>
+           근거는 '어디서 해봤는지'를 짧게. 실제와 다르면 고쳐주세요 -->
       <div class="skills">
         <div class="skill-box">
-          <!-- 게이지 %는 대략 잡아둔 값이에요. 본인 자신감에 맞게 조절하세요 -->
           <h3>기획 / 전략</h3>
           <ul>
             <li>
-              아이디어 피칭
-              <div class="bar"><i style="width:80%"></i></div>
+              <strong>사업계획서 작성</strong>
+              <span>한일 글로컬 창업 경진대회 2등 수상</span>
             </li>
             <li>
-              사업계획서 작성
-              <div class="bar"><i style="width:70%"></i></div>
+              <strong>아이디어 피칭</strong>
+              <span>창업 아이템을 심사위원 앞에서 발표</span>
             </li>
             <li>
-              시장 조사
-              <div class="bar"><i style="width:60%"></i></div>
+              <strong>브랜드 기획</strong>
+              <span>Suno AI로 브랜드 콘셉트 음악 3곡 제작</span>
             </li>
           </ul>
         </div>
         <div class="skill-box">
-          <h3>커뮤니케이션</h3>
+          <h3>리더십 / 소통</h3>
           <ul>
             <li>
-              발표
-              <div class="bar"><i style="width:85%"></i></div>
+              <strong>팀 리딩</strong>
+              <span>제42대 총학생회 지도부장</span>
             </li>
             <li>
-              팀 리딩
-              <div class="bar"><i style="width:80%"></i></div>
+              <strong>의견 조율</strong>
+              <span>경영학과 학과대표</span>
             </li>
             <li>
-              행사 운영
-              <div class="bar"><i style="width:70%"></i></div>
+              <strong>발표</strong>
+              <span>팀플에서 주로 발표 담당</span>
             </li>
           </ul>
         </div>
@@ -1544,20 +1979,16 @@ footer {
           <h3>문서 / 툴</h3>
           <ul>
             <li>
-              파워포인트
-              <div class="bar"><i style="width:92%"></i></div>
+              <strong>파워포인트</strong>
+              <span>발표 자료 디자인과 구성</span>
             </li>
             <li>
-              MS Word &amp; 한글
-              <div class="bar"><i style="width:85%"></i></div>
+              <strong>MS Word &amp; 한글 · Excel</strong>
+              <span>보고서와 학생회 문서 작업</span>
             </li>
             <li>
-              MS Excel
-              <div class="bar"><i style="width:60%"></i></div>
-            </li>
-            <li>
-              HTML / CSS
-              <div class="bar"><i style="width:45%"></i></div>
+              <strong>HTML / CSS</strong>
+              <span>이 포트폴리오를 직접 만들고 배포</span>
             </li>
           </ul>
         </div>
@@ -1620,6 +2051,55 @@ footer {
     </div>
   </section>
 
+  <!-- ==================== 앞으로의 계획 ====================
+       등산처럼 STEP 1 → STEP 6 으로 한 칸씩 올라가는 로드맵
+       <li> 하나가 한 단계 (아이콘 / STEP 번호 / 제목 / 설명)
+       class="now" = 지금 단계('지금 여기!' 표시), class="top" = 마지막 단계(깃발) -->
+  <section class="block" id="plan">
+    <div class="wrap">
+      <div class="head">
+        <h2>
+          <span class="blob" style="background:var(--emerald)"></span>
+          앞으로의 계획
+        </h2>
+        <p>나만의 아웃도어 브랜드까지, 한 걸음씩 올라가는 중이에요.</p>
+      </div>
+      <ol class="climb">
+        <li class="now">
+          <div class="step-top"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M8 7h8M8 10.5h5"/><circle cx="15" cy="17" r="2.5"/><path d="M13.5 19l-.8 2.5L15 20.6l2.3.9-.8-2.5"/></svg></span><span class="camp">STEP 1</span></div>
+          <strong>전문학사 졸업</strong>
+          <span class="what">교수님들께 많이 배우고, 전공심화(재직자 트랙, 야간반) 입학 요건 확인</span>
+          <span class="here">지금 여기!</span>
+        </li>
+        <li>
+          <div class="step-top"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/></svg></span><span class="camp">STEP 2</span></div>
+          <strong>군 입대 · 공부와 사업 기초</strong>
+          <span class="what">원격강좌로 학점 쌓기, 경영 책 읽기, SNS 계정을 만들어 아웃도어 콘텐츠 시작</span>
+        </li>
+        <li>
+          <div class="step-top"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 12.5h18"/></svg></span><span class="camp">STEP 3</span></div>
+          <strong>재직 + 전공심화 · 학사 취득</strong>
+          <span class="what">아웃도어·소재 회사에서 일하며 학사 취득, 자본 모으기, 소량 테스트 판매</span>
+        </li>
+        <li>
+          <div class="step-top"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 9.5L12 5l9.5 4.5L12 14z"/><path d="M6.5 11.5V16c0 1.4 2.5 3 5.5 3s5.5-1.6 5.5-3v-4.5M21.5 9.5V15"/></svg></span><span class="camp">STEP 4</span></div>
+          <strong>경영 일반대학원 + 사업 시작</strong>
+          <span class="what">아웃도어 산업을 주제로 논문을 쓰고, 스타일·엔트리 기능성 제품으로 첫 출시</span>
+        </li>
+        <li>
+          <div class="step-top"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20L10 7l4 7 2-3 5 9z"/><path d="M8.2 10.5L10 12l1.8-1.5"/></svg></span><span class="camp">STEP 5</span></div>
+          <strong>사업 본격화 · 고기능성 확장</strong>
+          <span class="what">검증된 원단사와 협업해서 고기능성 라인 출시</span>
+        </li>
+        <li class="top">
+          <div class="step-top"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7 15h10"/></svg></span><span class="camp">STEP 6</span></div>
+          <strong>소재·화학·의류 석사</strong>
+          <span class="what">브랜드를 키우며 더 깊은 지식이 필요할 때 진학</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- ==================== 연락처 ==================== -->
   <section class="contact" id="contact">
     <div class="wrap">
@@ -1639,6 +2119,144 @@ footer {
     </div>
   </section>
 
+
+  <!-- ==================== 프로젝트 상세 팝업 ====================
+       프로젝트 카드를 누르면 열리는 팝업이에요 (카드의 data-open = 팝업 id)
+       한 팝업 = <dialog> ~ </dialog>
+       구성: 사진 → 제목/태그 → 섹션(<section class="d-sec">)들
+       [대괄호] 부분은 아직 정보가 없어서 비워둔 곳이에요. 꼭 채워주세요! -->
+
+  <!-- ----- 1. 창업 경진대회 ----- -->
+  <dialog class="music-modal detail-modal" id="detail-contest" aria-labelledby="dc-title">
+    <div class="modal-inner">
+    <div class="modal-head">
+      <div>
+        <div class="tags">
+          <span class="chip g">팀 프로젝트</span>
+          <span class="chip p">2등 수상</span>
+          <span class="chip">2026.02.08 ~ 14</span>
+        </div>
+        <h2 id="dc-title">한일 지역공생 글로컬 창업 경진대회</h2>
+        <p>TEAM 자오가자오 · 미야기현의회 의장상</p>
+      </div>
+      <button class="modal-close" type="button" data-close aria-label="닫기">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- 사진 모음: <figure> 하나가 사진 한 장. 사진 파일을 같은 폴더에 올리고 src만 바꾸세요
+         빈 칸(.d-empty)은 사진을 넣으면 지워도 돼요 -->
+    <div class="d-gallery">
+      <figure class="d-main"><img src="miyagi.jpg" alt="창업 경진대회 현장 사진"></figure>
+      <figure class="d-empty">사진 추가</figure>
+      <figure class="d-empty">사진 추가</figure>
+    </div>
+
+    <section class="d-sec">
+      <h3><span class="d-num">01</span>어떤 대회였나요</h3>
+      <!-- 대회 소개가 사실과 다르면 고쳐주세요 -->
+      <p>한국과 일본 대학생이 함께 지역 문제를 창업 아이디어로 풀어내는 글로컬 창업 경진대회예요. [대회가 열린 장소, 참가 팀 수]</p>
+    </section>
+    <section class="d-sec">
+      <h3><span class="d-num">02</span>우리 팀 아이템</h3>
+      <p>[아이템 이름] — [어떤 지역 문제를, 어떤 방식으로 해결하는 아이템인지 2~3문장]</p>
+    </section>
+    <section class="d-sec">
+      <h3><span class="d-num">03</span>내가 맡은 일</h3>
+      <ul class="d-list">
+        <li>[예: 시장 조사와 경쟁사 분석]</li>
+        <li>[예: 사업계획서 작성]</li>
+        <li>[예: 본선 발표]</li>
+      </ul>
+    </section>
+    <section class="d-sec d-result">
+      <h3><span class="d-num">04</span>결과와 배운 점</h3>
+      <p><strong>2등 · 미야기현의회 의장상</strong></p>
+      <p>[이 대회를 통해 배운 점이나 느낀 점 1~2문장]</p>
+    </section>
+    </div>
+  </dialog>
+
+  <!-- ----- 2. 포트폴리오 웹사이트 ----- -->
+  <dialog class="music-modal detail-modal" id="detail-site" aria-labelledby="ds-title">
+    <div class="modal-inner">
+    <div class="modal-head">
+      <div>
+        <div class="tags">
+          <span class="chip b">개인 작업</span>
+          <span class="chip">2026.10</span>
+        </div>
+        <h2 id="ds-title">나만의 포트폴리오 웹사이트</h2>
+        <p>지금 보고 계신 이 사이트예요</p>
+      </div>
+      <button class="modal-close" type="button" data-close aria-label="닫기">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <section class="d-sec">
+      <h3><span class="d-num">01</span>왜 만들었나요</h3>
+      <p>저를 한 페이지로 소개할 공간이 필요했어요. 앱서비스과에서 배운 걸 살려서 템플릿 대신 직접 만들어보기로 했어요.</p>
+    </section>
+    <section class="d-sec">
+      <h3><span class="d-num">02</span>이렇게 만들었어요</h3>
+      <ul class="d-list">
+        <li>학생증과 모눈 노트를 콘셉트로 파스텔 컬러와 스티커 느낌을 잡았어요</li>
+        <li>HTML, CSS, JavaScript로 만들고 GitHub Pages로 배포했어요</li>
+        <li>AI 도구(Claude)와 대화하며 디자인을 다듬고 코드를 함께 고쳐나갔어요</li>
+        <li>휴대폰에서도 잘 보이도록 화면 크기별로 배치를 따로 맞췄어요</li>
+      </ul>
+    </section>
+    <section class="d-sec">
+      <h3><span class="d-num">03</span>신경 쓴 부분</h3>
+      <p>겹친 카드, 음악 팝업, 이 상세 팝업처럼 보는 사람이 직접 눌러보며 구경하는 재미를 넣었어요.</p>
+    </section>
+    <a class="btn primary d-btn" href="https://github.com/lee-tae-in/lee-tae-in.github.io"
+       target="_blank" rel="noopener">GitHub에서 코드 보기</a>
+    </div>
+  </dialog>
+
+  <!-- ----- 3. AI취업메이트 캠프 ----- -->
+  <dialog class="music-modal detail-modal" id="detail-camp" aria-labelledby="dk-title">
+    <div class="modal-inner">
+    <div class="modal-head">
+      <div>
+        <div class="tags">
+          <span class="chip p">교육 캠프</span>
+          <span class="chip">2026.09.16 ~ 18</span>
+        </div>
+        <h2 id="dk-title">AI취업메이트 캠프</h2>
+        <p>AI 활용 역량을 기르고 목표 직무를 탐색한 3일</p>
+      </div>
+      <button class="modal-close" type="button" data-close aria-label="닫기">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <section class="d-sec">
+      <h3><span class="d-num">01</span>무엇을 배웠나요</h3>
+      <p>[캠프에서 배운 AI 도구와 활용법. 예: 자기소개서 작성, 기업 분석에 AI 활용하기]</p>
+    </section>
+    <section class="d-sec">
+      <h3><span class="d-num">02</span>내가 만든 결과물</h3>
+      <p>[목표 기업과 직무 분석 결과, 만든 자료 등]</p>
+    </section>
+    <section class="d-sec">
+      <h3><span class="d-num">03</span>느낀 점</h3>
+      <p>[캠프 후 달라진 점이나 앞으로 해보고 싶은 것]</p>
+    </section>
+    </div>
+  </dialog>
+
   <!-- ==================== 음악 팝업 ====================
        <dialog>는 브라우저 기본 팝업 요소예요. ESC 키로도 닫혀요.
        노래 추가/수정: <li> ~ </li> 한 묶음이 노래 하나
@@ -1649,7 +2267,7 @@ footer {
     <div class="modal-head">
       <div>
         <span class="chip b">Suno AI</span>
-        <h2 id="music-title">내가 만든 노래</h2>
+        <h2 id="music-title">브랜드를 소리로 기획하기</h2>
         <p>듣고 싶은 곡을 누르면 여기서 바로 재생돼요.</p>
       </div>
       <button class="modal-close" type="button" data-close aria-label="닫기">
@@ -1709,7 +2327,47 @@ footer {
 </main>
 
 <!-- ==================== 맨 아래 푸터 ==================== -->
-<footer>© 2026 이태인. 직접 만든 포트폴리오예요.</footer>
+<footer>
+  <div class="footer-socials" aria-label="연락 및 소셜 미디어">
+    <!-- 링크 입력 시 각 아이콘에 href="주소"를 추가하고 aria-disabled="true"를 삭제하세요.
+         이메일은 href="mailto:이메일주소"로 입력하세요. -->
+    <a class="footer-social footer-social--email" role="link" aria-disabled="true" aria-label="이메일 (링크 준비 중)" title="이메일">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+    </a>
+    <a class="footer-social footer-social--instagram" role="link" aria-disabled="true" aria-label="인스타그램 (링크 준비 중)" title="인스타그램">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a class="footer-social footer-social--youtube" role="link" aria-disabled="true" aria-label="유튜브 (링크 준비 중)" title="유튜브">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3Z" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+  <p class="footer-copyright">© 2026 TAEINLEE. All rights reserved.</p>
+</footer>
+
+<!-- ==================== 휴대폰 메뉴 스크립트 ==================== -->
+<script>
+  (function () {
+    var btn = document.querySelector('.menu-btn');
+    var menu = document.getElementById('main-menu');
+    if (!btn || !menu) return;
+    function setOpen(open) {
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    }
+    btn.addEventListener('click', function () {
+      setOpen(!menu.classList.contains('open'));
+    });
+    // 메뉴 항목을 누르면 이동하면서 메뉴 닫기
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    // 메뉴 바깥을 누르면 닫기
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav')) setOpen(false);
+    });
+  })();
+</script>
 
 <!-- ==================== 팝업 열고 닫기 + 음악 재생 스크립트 ==================== -->
 <script>
